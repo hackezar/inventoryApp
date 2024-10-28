@@ -1,0 +1,17 @@
+// app.js
+const express = require('express')
+const app = express();
+const usersRouter = require('./routs/usersRouter');
+
+const path = require("node:path");
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath, { extended: true }));
+
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+app.use("/", usersRouter);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Express app listening on port ${PORT}!`));
+
+const { body, validationResult } = require('express-validator');
